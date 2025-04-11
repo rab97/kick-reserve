@@ -1,0 +1,845 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/v1": {
+      "get": {
+        "operationId": "ping_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Health check",
+        "tags": [
+          "App"
+        ]
+      }
+    },
+    "/v1/users": {
+      "get": {
+        "operationId": "getUsers_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "array",
+                      "items": {
+                        "$ref": "#/components/schemas/User"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Gets all users",
+        "tags": [
+          "Users"
+        ]
+      }
+    },
+    "/v1/users/me": {
+      "get": {
+        "operationId": "getMe_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/User"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Gets the currently authenticated user's profile",
+        "tags": [
+          "Users"
+        ]
+      },
+      "patch": {
+        "operationId": "updateMe_v1",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Updates the currently authenticated user's profile",
+        "tags": [
+          "Users"
+        ]
+      }
+    },
+    "/v1/users/{code}": {
+      "get": {
+        "operationId": "getUser_v1",
+        "parameters": [
+          {
+            "name": "code",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/User"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Gets the user given its code",
+        "tags": [
+          "Users"
+        ]
+      },
+      "patch": {
+        "operationId": "updateUser_v1",
+        "parameters": [
+          {
+            "name": "code",
+            "required": true,
+            "in": "path",
+            "description": "The unique identifier of the user",
+            "schema": {
+              "example": "793da735-c1f7-4942-822c-9f7a7a3a842b",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Updates the user given its code",
+        "tags": [
+          "Users"
+        ]
+      }
+    },
+    "/v1/users/login": {
+      "post": {
+        "operationId": "login_v1",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/LoginDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "data": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "summary": "Logs in a user with local credentials",
+        "tags": [
+          "Users"
+        ]
+      }
+    },
+    "/v1/users/signup": {
+      "post": {
+        "operationId": "createUser_v1",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateUserDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "Signs up a new user with local credentials",
+        "tags": [
+          "Users"
+        ]
+      }
+    },
+    "/v1/footballfields": {
+      "get": {
+        "operationId": "getFootballFields_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Gets all football-fields",
+        "tags": [
+          "FootballFields"
+        ]
+      },
+      "post": {
+        "operationId": "createFootballField_v1",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateFootballFieldDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "Creates a new football-field",
+        "tags": [
+          "FootballFields"
+        ]
+      }
+    },
+    "/v1/footballfields/{code}": {
+      "get": {
+        "operationId": "getFootballField_v1",
+        "parameters": [
+          {
+            "name": "code",
+            "required": true,
+            "in": "path",
+            "description": "The code of the football field",
+            "schema": {
+              "example": "793da735-c1f7-4942-822c-9f7a7a3a842b",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Gets the football-field given its code",
+        "tags": [
+          "FootballFields"
+        ]
+      },
+      "patch": {
+        "operationId": "updateFootballField_v1",
+        "parameters": [
+          {
+            "name": "code",
+            "required": true,
+            "in": "path",
+            "description": "The code of the football field",
+            "schema": {
+              "example": "793da735-c1f7-4942-822c-9f7a7a3a842b",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateFootballFieldDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Updates the football-field given its code",
+        "tags": [
+          "FootballFields"
+        ]
+      }
+    },
+    "/v1/teams": {
+      "get": {
+        "operationId": "getTeams_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Gets all teams",
+        "tags": [
+          "Teams"
+        ]
+      },
+      "post": {
+        "operationId": "createTeam_v1",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTeamDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "summary": "Creates a new team",
+        "tags": [
+          "Teams"
+        ]
+      }
+    },
+    "/v1/teams/{code}": {
+      "get": {
+        "operationId": "getTeam_v1",
+        "parameters": [
+          {
+            "name": "code",
+            "required": true,
+            "in": "path",
+            "description": "The code of the team",
+            "schema": {
+              "example": "793da735-c1f7-4942-822c-9f7a7a3a842b",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Gets the team given its code",
+        "tags": [
+          "Teams"
+        ]
+      },
+      "patch": {
+        "operationId": "updateTeam_v1",
+        "parameters": [
+          {
+            "name": "code",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateTeamDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Updates the team given its code",
+        "tags": [
+          "Teams"
+        ]
+      }
+    },
+    "/v1/players": {
+      "get": {
+        "operationId": "getPlayers_v1",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Gets the  list of players",
+        "tags": [
+          "Players"
+        ]
+      },
+      "post": {
+        "operationId": "createMe_v1",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreatePlayerDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "security": [
+          {
+            "bearer": []
+          }
+        ],
+        "summary": "Creates a new player for the authenticated user",
+        "tags": [
+          "Players"
+        ]
+      }
+    },
+    "/v1/players/{code}": {
+      "get": {
+        "operationId": "getPlayer_v1",
+        "parameters": [
+          {
+            "name": "code",
+            "required": true,
+            "in": "path",
+            "description": "The player code identifier",
+            "schema": {
+              "example": "123e4567-e89b-12d3-a456-426655440000",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "summary": "Get the playe given its code",
+        "tags": [
+          "Players"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "e-commerce API",
+    "description": "e-commerce API",
+    "version": "1.0.0",
+    "contact": {}
+  },
+  "tags": [],
+  "servers": [],
+  "components": {
+    "securitySchemes": {
+      "bearer": {
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "type": "http"
+      }
+    },
+    "schemas": {
+      "User": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "format": "uuid",
+            "example": "5f8c85e2-85a2-4686-b339-3c495f736481",
+            "nullable": false,
+            "description": "The document identifier"
+          },
+          "code": {
+            "type": "string",
+            "description": "The user code identifier",
+            "nullable": false,
+            "example": "793da735-c1f7-4942-822c-9f7a7a3a842b",
+            "format": "uuid"
+          },
+          "firstName": {
+            "type": "string",
+            "description": "The user's first name",
+            "nullable": true,
+            "default": null,
+            "example": "John",
+            "format": "name"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "The user's last name",
+            "nullable": true,
+            "default": null,
+            "example": "Doe",
+            "format": "name"
+          },
+          "email": {
+            "type": "string",
+            "description": "The user's email",
+            "nullable": false,
+            "example": "john.doe@example.com",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "The user's password",
+            "nullable": false,
+            "example": "$2b$10$8U79g0j6i302L39kZ9Z28O7y.g4s73780Q.x55U.Q4",
+            "format": "password"
+          },
+          "phoneNumber": {
+            "type": "string",
+            "description": "The user's phone number",
+            "nullable": true,
+            "default": null,
+            "format": "phone",
+            "example": "+1 555-555-5555"
+          },
+          "picture": {
+            "type": "string",
+            "nullable": true,
+            "default": null,
+            "format": "uri",
+            "example": "https://example.com/user-picture.jpg",
+            "description": "The user's picture URL"
+          },
+          "loginsCount": {
+            "type": "number",
+            "nullable": false,
+            "default": 0,
+            "description": "Number of times the user has logged in",
+            "example": 10,
+            "format": "int32",
+            "minimum": 0,
+            "maximum": 1000,
+            "exclusiveMinimum": false,
+            "exclusiveMaximum": false,
+            "multipleOf": 1,
+            "pattern": "^[0-9]+$",
+            "minLength": 0,
+            "maxLength": 5,
+            "minItems": 0,
+            "maxItems": 10
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "customer",
+              "super_admin",
+              "admin"
+            ],
+            "description": "The role of the user",
+            "nullable": false,
+            "default": "customer",
+            "example": "customer",
+            "format": "role"
+          },
+          "player": {
+            "type": "string",
+            "nullable": true,
+            "default": null,
+            "format": "uuid",
+            "example": "5f8c85e2-85a2-4686-b339-3c495f736481",
+            "description": "The player linked to this user"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date when this entity was created",
+            "nullable": false,
+            "example": "2020-09-15T12:34:56Z",
+            "readOnly": true
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "The date when this entity was updated",
+            "nullable": false,
+            "example": "2020-09-15T12:34:56Z",
+            "readOnly": true
+          }
+        },
+        "required": [
+          "_id",
+          "code",
+          "firstName",
+          "lastName",
+          "email",
+          "password",
+          "phoneNumber",
+          "picture",
+          "loginsCount",
+          "role",
+          "createdAt",
+          "updatedAt"
+        ]
+      },
+      "UpdateUserDto": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string",
+            "description": "The first name of the user",
+            "nullable": true,
+            "default": null,
+            "example": "John",
+            "format": "name"
+          },
+          "lastName": {
+            "type": "string",
+            "description": "The last name of the user",
+            "nullable": true,
+            "default": null,
+            "example": "Doe",
+            "format": "name"
+          },
+          "email": {
+            "type": "string",
+            "description": "The email of the user",
+            "nullable": false,
+            "example": "john@example.com",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "The password of the user",
+            "nullable": false,
+            "example": "password",
+            "format": "password"
+          },
+          "phoneNumber": {
+            "type": "string",
+            "description": "The phone number of the user",
+            "nullable": true,
+            "default": null,
+            "format": "phone",
+            "example": "+1 123-456-7890"
+          },
+          "picture": {
+            "type": "string",
+            "nullable": true,
+            "default": null,
+            "format": "uri",
+            "example": "https://example.com/profile-picture.jpg",
+            "description": "The picture URL of the user"
+          }
+        },
+        "required": [
+          "email",
+          "password"
+        ]
+      },
+      "LoginDto": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string",
+            "description": "The email of the user",
+            "example": "john@example.com"
+          },
+          "password": {
+            "type": "string",
+            "description": "The password of the user",
+            "example": "password"
+          }
+        },
+        "required": [
+          "username",
+          "password"
+        ]
+      },
+      "CreateUserDto": {
+        "type": "object",
+        "properties": {
+          "email": {
+            "type": "string",
+            "description": "The email of the user",
+            "nullable": false,
+            "example": "john@example.com",
+            "format": "email"
+          },
+          "password": {
+            "type": "string",
+            "description": "The password of the user",
+            "nullable": false,
+            "example": "password",
+            "format": "password"
+          },
+          "role": {
+            "type": "string",
+            "enum": [
+              "customer",
+              "super_admin",
+              "admin"
+            ],
+            "description": "The role of the user",
+            "nullable": false,
+            "default": "customer",
+            "example": "admin",
+            "format": "role"
+          }
+        },
+        "required": [
+          "email",
+          "password",
+          "role"
+        ]
+      },
+      "CreateFootballFieldDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the football field",
+            "example": "Field 1"
+          },
+          "picture": {
+            "type": "string",
+            "description": "The picture URL of the football field",
+            "example": "https://example.com/field_1.jpg"
+          }
+        },
+        "required": [
+          "name",
+          "picture"
+        ]
+      },
+      "UpdateFootballFieldDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the football field",
+            "example": "Field 1"
+          },
+          "picture": {
+            "type": "string",
+            "description": "The picture URL of the football field",
+            "example": "https://example.com/field_1.jpg"
+          }
+        },
+        "required": [
+          "name",
+          "picture"
+        ]
+      },
+      "CreateTeamDto": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the team",
+            "example": "Team A"
+          },
+          "picture": {
+            "type": "string",
+            "description": "The picture URL of the team",
+            "example": "https://example.com/team_a.jpg"
+          }
+        },
+        "required": [
+          "name",
+          "picture"
+        ]
+      },
+      "CreatePlayerDto": {
+        "type": "object",
+        "properties": {}
+      }
+    }
+  }
+}
